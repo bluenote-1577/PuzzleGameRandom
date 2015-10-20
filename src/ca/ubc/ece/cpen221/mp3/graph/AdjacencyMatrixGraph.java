@@ -2,6 +2,7 @@ package ca.ubc.ece.cpen221.mp3.graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,8 +12,7 @@ import ca.ubc.ece.cpen221.mp3.staff.Vertex;
 public class AdjacencyMatrixGraph implements Graph {
 	
 	private final ArrayList<ArrayList<Boolean>> matrix = new ArrayList<ArrayList<Boolean>>();
-	private final Map<Vertex,Integer> verticesMap = new LinkedHashMap<Vertex,Integer>();
-
+	private final ArrayList<Vertex> allVertices = new ArrayList<Vertex>();
 	/**
 	 * Changes our matrix to accommodate for the new vertex that is not
 	 * being pointed to. The vertex is then placed inside the hashmap. 
@@ -32,7 +32,9 @@ public class AdjacencyMatrixGraph implements Graph {
 		}
 		
 		matrix.add(toAdd);
-		verticesMap.put(v,size);
+
+		allVertices.add(v);
+		
 	}
 	
 	/**
@@ -46,8 +48,10 @@ public class AdjacencyMatrixGraph implements Graph {
 	
 	@Override
 	public void addEdge(Vertex v1, Vertex v2){
-		int index1 = verticesMap.get(v1);
-		int index2 = verticesMap.get(v2);
+
+		
+		int index1 = allVertices.indexOf(v1);
+		int index2 = allVertices.indexOf(v2);
 		
 		matrix.get(index1).set(index2, true);
 		
@@ -56,20 +60,45 @@ public class AdjacencyMatrixGraph implements Graph {
 	
 	@Override
 	public boolean edgeExists(Vertex v1, Vertex v2){
-		int index1 = verticesMap.get(v1);
-		int index2 = verticesMap.get(v2);
+	
+		
+		int index1 = allVertices.indexOf(v1);
+		int index2 = allVertices.indexOf(v2);
 		
 		return matrix.get(index1).get(index2);
 	}
 	
 	@Override
 	public List<Vertex> getDownstreamNeighbors(Vertex v){
-		return null;
+		
+		int indexV = allVertices.indexOf(v);
+		ArrayList<Boolean> returnedRow = matrix.get(indexV);
+		List<Vertex> toReturn = new ArrayList<Vertex>();
+		int indexofEdge = 0;
+		for ( Boolean directedEdge : returnedRow){
+			if (directedEdge == true){
+				toReturn.add(allVertices.get(indexofEdge));
+			}
+			indexofEdge++;
+		}
+		
+		return toReturn;
+		
 	}
 
 	@Override
 	public List<Vertex> getUpstreamNeighbors(Vertex v){
-		return null;
+		int indexV = allVertices.indexOf(v);
+		List<Vertex> toReturn = new ArrayList<Vertex>();
+		int indexofEdge = 0;
+		for (ArrayList<Boolean> matrixRow : matrix){
+			if(matrixRow.get(indexV) == true){
+				toReturn.add(allVertices.get(indexofEdge));
+			}
+			indexofEdge++;
+		}
+		
+		return toReturn;
 	}
 	
 	@Override
@@ -78,7 +107,7 @@ public class AdjacencyMatrixGraph implements Graph {
 	 */
 	public List<Vertex> getVertices(){
 		List<Vertex> dude = new ArrayList<Vertex>();
-		for (Vertex vertices : verticesMap.keySet()){
+		for (Vertex vertices : allVertices){
 			dude.add(vertices);
 		}
 	
