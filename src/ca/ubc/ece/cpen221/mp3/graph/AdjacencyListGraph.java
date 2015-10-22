@@ -13,12 +13,18 @@ public class AdjacencyListGraph implements Graph {
 	// each key in map has an array of vertices
 	private final Map<Vertex, ArrayList<Vertex>> vert_map; // new HashMap<Vertex ArrayList<Vertex>>();
 	
-	// method to return vert_map
+	/**
+	 * This method is for my junit test only, it returns the map which contains 
+	 * all the vertices added to the adjacency list graph
+	 * @return vert_map 
+	 */
 	public Map<Vertex, ArrayList<Vertex>> getMap() {
 		return vert_map;
 	}
 
-	// constructs a new map for the new vertex
+	/**
+	 * constructs a new map for the new vertex
+	 */
 	public AdjacencyListGraph() {
 		vert_map = new HashMap<Vertex, ArrayList<Vertex>>();
 	}
