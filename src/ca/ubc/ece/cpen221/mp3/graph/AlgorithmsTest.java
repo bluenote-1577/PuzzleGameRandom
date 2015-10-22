@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +18,7 @@ import ca.ubc.ece.cpen221.mp3.staff.Vertex;
 public class AlgorithmsTest {
 
 	Graph adjmatrix = new AdjacencyMatrixGraph();
+	Graph emptymatrix = new AdjacencyMatrixGraph();
 	Vertex v1 = new Vertex("a");
 	Vertex v2 = new Vertex("b");
 	Vertex v3 = new Vertex("c");
@@ -92,7 +94,11 @@ public class AlgorithmsTest {
 		
 		assertEquals(Algorithms.BFS(adjmatrix),compare);
 		
-		//do more
+		//tests the empty matrix
+		
+		Set<List<Vertex>> empty = new LinkedHashSet<List<Vertex>>();
+		
+		assertEquals(Algorithms.BFS(emptymatrix),empty);
 	}
 	
 	
@@ -138,6 +144,12 @@ public class AlgorithmsTest {
 		
 		
 		assertEquals(Algorithms.BFS(adjmatrix),compare);
+		
+		//Test empty matrix
+		
+		Set<List<Vertex>> empty = new LinkedHashSet<List<Vertex>>();
+		
+		assertEquals(Algorithms.DFS(emptymatrix),empty);
 	}
 	
 	
@@ -177,7 +189,48 @@ public class AlgorithmsTest {
 		compare.add(Arrays.asList(v2,v3));
 	}
 	
+	@Test
+	public void commonUpVerticesTest1(){
+		//simple test, 2 upstream vertices.
+		adjmatrix.addEdge(v1, v5);
+		adjmatrix.addEdge(v1, v6);
+		adjmatrix.addEdge(v2, v5);
+		adjmatrix.addEdge(v2, v6);
+		emptymatrix.addVertex(v1);
+		emptymatrix.addVertex(v2);
+		
+		List<Vertex> compare = new LinkedList<Vertex>();
+		compare.add(v1);
+		compare.add(v2);
+		//empty test
+		List<Vertex> empty= new LinkedList<Vertex>();
+		
+		assertEquals(Algorithms.commonUpstreamVertices(adjmatrix, v5, v6),compare);
+		assertEquals(Algorithms.commonUpstreamVertices(emptymatrix, v1, v2),empty);
+	}
 	
+	@Test
+	public void commonDownVerticesTest1(){
+		
+		//simple test, 2 common downstream vertices
+		//also an empty test, should return empty list
+		adjmatrix.addEdge(v1, v2);
+		adjmatrix.addEdge(v1, v3);
+		adjmatrix.addEdge(v4, v2);
+		adjmatrix.addEdge(v4, v3);
+		
+		emptymatrix.addVertex(v1);
+		emptymatrix.addVertex(v2);
+		
+		List<Vertex> compare = new LinkedList<Vertex>();
+		compare.add(v2);
+		compare.add(v3);
+		
+		List<Vertex> empty = new LinkedList<Vertex>();
+		
+		assertEquals(Algorithms.commonDownstreamVertices(adjmatrix, v1, v4),compare);
+		assertEquals(Algorithms.commonDownstreamVertices(emptymatrix, v1, v2),empty);
+	}
 	
 	
 

@@ -66,6 +66,17 @@ public class Algorithms {
 		else throw new NoPathException("No path found between vertices");
 	}
 	
+	/**
+	 * The breadth-first search. Calls the BFS on every vertex in our graph.
+	 * Important to note that the order of calling the BFS on each of our vertices is determined by
+	 * the order in which the vertices are put in the graph. The order of the lists
+	 * returned correspond to how the BFS is supposed to traverse a graph, but the
+	 * order of the sets (we used a LinkedHashSet) depends on the order of the vertices
+	 * inserted into the graph
+	 * @param graph : The graph to be traversed.
+	 * @return a set (which we made ordered for testing purposes) of Lists of the BFS results
+	 * called on every vertex. Returns an empty list if the graph is empty.
+	 */
 	public static Set<List<Vertex>> BFS(Graph graph){
 		Set<List<Vertex>> myLists = new LinkedHashSet<List<Vertex>>();
 		List<Vertex> allVertices = graph.getVertices();
@@ -91,6 +102,17 @@ public class Algorithms {
 		return myLists;
 	}
 	
+	/**
+	 * Calls the Depth-First search on every single vertex in our graph. 
+	 * The order of the Set of Lists returned is dependent on the order in which our 
+	 * vertices are added. That is, the first traversal is called
+	 * on the first vertex put in our graph.
+	 * @param graph : The graph that is searched.
+	 * @return Set<List<Vertex>> : an ordered set of lists. The first set
+	 * is the list of the DFS traversal of our first vertex put into the graph and
+	 * so forth. The order of the List is the order of DFS traversal. Returns
+	 * an empty set of lists if graph is empty.
+	 */
 	public static Set<List<Vertex>> DFS(Graph graph){
 		Stack<Vertex> verticesToSearch = new Stack<Vertex>();
 		Set<List<Vertex>> myLists = new LinkedHashSet<List<Vertex>>();
@@ -119,6 +141,57 @@ public class Algorithms {
 		
 	}
 	
+	/**
+	 * A method for finding common upstream vertices of two vertices a and b.
+	 * 
+	 * @param graph : The graph in which vertices a and b are located.
+	 * @param a has to be inside graph.
+	 * @param b has to be inside graph.
+	 * @return a List<Vertex> containing all the vertices that have an edge to both
+	 * a and b. Returns an empty list of vertices if there are no vertices with
+	 * edges to both a and b.
+	 */
+	public static List<Vertex> commonUpstreamVertices(Graph graph, Vertex a, Vertex b){
+		List<Vertex> toReturn = new LinkedList<Vertex>();
+		
+		List<Vertex> upstreamVerticesA = graph.getUpstreamNeighbors(a);
+		List<Vertex> upstreamVerticesB = graph.getUpstreamNeighbors(b);
+		
+		for (Vertex vertex: upstreamVerticesA){
+			if (upstreamVerticesB.contains(vertex)){
+				toReturn.add(vertex);
+			}
+		}
+		
+		return toReturn;
+	}
 	
+	/**
+	 * 
+	 * A method for finding common upstream vertices of two vertices a and b.
+	 * 
+	 * @param graph : The graph in which vertices a and b are located
+	 * @param a has to be inside the graph.
+	 * @param b has to be inside the graph.
+	 * @return a List<Vertex> containing all the vertices that have an edge to both
+	 * a and b. Returns an empty list of vertices if there are no vertices with
+	 * edges to both a and b.
+	 */
 
+	
+	public static List<Vertex> commonDownstreamVertices(Graph graph, Vertex a, Vertex b){
+		
+		List<Vertex> toReturn = new LinkedList<Vertex>();
+		
+		List<Vertex> downstreamVerticesA = graph.getDownstreamNeighbors(a);
+		List<Vertex> downstreamVerticesB = graph.getDownstreamNeighbors(b);
+		
+		for (Vertex vertex: downstreamVerticesA){
+			if (downstreamVerticesB.contains(vertex)){
+				toReturn.add(vertex);
+			}
+		}
+		
+		return toReturn;
+	}
 }
