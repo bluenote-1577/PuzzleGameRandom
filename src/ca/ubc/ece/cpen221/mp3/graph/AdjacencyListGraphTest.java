@@ -236,5 +236,48 @@ public class AdjacencyListGraphTest {
 	    assertEquals(3, vert_list.getUpstreamNeighbors(v3).size());
 	    assertEquals(list2, vert_list.getUpstreamNeighbors(v3));
 	}
+	
+	@Test 
+	public void getVerticesTest(){
+		
+		vert_list = new AdjacencyListGraph();
+
+		// create map to get the ArrayLists from each vertex
+		Map<Vertex, ArrayList<Vertex>> my_map;
+		my_map = vert_list.getMap();
+		
+		ArrayList<Vertex> arr1 = my_map.get(v1);
+		ArrayList<Vertex> arr2 = my_map.get(v2);
+		ArrayList<Vertex> arr3 = my_map.get(v3);
+		ArrayList<Vertex> arr4 = my_map.get(v4);
+		
+		List<Vertex> list1 = new ArrayList<Vertex>();
+		List<Vertex> list2 = new ArrayList<Vertex>();
+		
+		//case 1: no vertices in the graph (size = 0)
+		assertEquals(0, vert_list.getVertices().size());
+		
+		// add v1 to the graph
+		vert_list.addVertex(v1);
+		
+		list1.add(v1);
+		
+		//case 2: one vertex in the graph (size = 1)
+		assertEquals(1, vert_list.getVertices().size());
+		assertEquals(list1, vert_list.getVertices());
+		
+		//add a few more vertices to the graph 
+		vert_list.addVertex(v2);
+		vert_list.addVertex(v4);
+		
+		list1.add(v2);
+		list1.add(v4);
+		
+		//case 3: multiple vertices in the graph (size =3)
+		assertEquals(3, vert_list.getVertices().size());
+		assertEquals(list1, vert_list.getVertices());
+		
+		
+	}
 
 }
