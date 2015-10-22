@@ -86,13 +86,13 @@ public class AdjacencyListGraph implements Graph {
 	 * iff v has no downstream neighbors.
 	 */
 	public List<Vertex> getDownstreamNeighbors(Vertex v) {
-		ArrayList<Vertex> down_stream = new ArrayList<Vertex>(); //ArrayList to be returned 
+		List<Vertex> down_stream = new ArrayList<Vertex>(); //List to be returned 
 		ArrayList<Vertex> check_edges; //ArrayList for checking the Vertices 
 		
 		check_edges = vert_map.get(v);
 		for(int index = 0; index < check_edges.size(); index++){
-			down_stream.add(index, check_edges.get(index));
-		}
+			down_stream.add(index, check_edges.get(index)); //transfer each ArrayList element 
+		}                                                   //into the new List 
 		
 		return down_stream;
 	}
@@ -108,7 +108,26 @@ public class AdjacencyListGraph implements Graph {
 	 * iff v has no upstream neighbors.
 	 */
 	public List<Vertex> getUpstreamNeighbors(Vertex v) {
-		return null;
+		
+		List<Vertex> up_stream = new ArrayList<Vertex>(); //List to be returned 
+		ArrayList<Vertex> temporary_arr = new ArrayList<Vertex>();                   
+		boolean found_vertex = false; 
+		
+		//check each key in the vert_map for v downstream
+		for(Vertex key : vert_map.keySet()){
+			temporary_arr.addAll(vert_map.get(key)); 
+			for(int index = 0; index < temporary_arr.size(); index++){
+				if(v.equals(temporary_arr.get(index)))
+					found_vertex = true; 
+			}
+			if(found_vertex){
+				up_stream.add(key); //add the upStream vertex to the list 
+				found_vertex = false; 
+			}
+			//clear the arrayList for the next key
+			temporary_arr.clear();
+		}
+		return up_stream; 
 	}
 
 	/**

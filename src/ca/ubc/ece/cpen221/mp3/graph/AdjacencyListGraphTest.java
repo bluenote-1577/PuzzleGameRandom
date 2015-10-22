@@ -3,6 +3,7 @@ package ca.ubc.ece.cpen221.mp3.graph;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -110,7 +111,7 @@ public class AdjacencyListGraphTest {
 	@Test
 	public void edgeExistsTest() {
 		vert_list = new AdjacencyListGraph();
-		
+
 		// add vertices to the graph
 		vert_list.addVertex(v1);
 		vert_list.addVertex(v2);
@@ -120,34 +121,73 @@ public class AdjacencyListGraphTest {
 		// create map to get the ArrayLists from each vertex
 		Map<Vertex, ArrayList<Vertex>> my_map;
 		my_map = vert_list.getMap();
-		
+
 		// get the arrays from each vertex in the graph
 		ArrayList<Vertex> arr1 = my_map.get(v1);
 		ArrayList<Vertex> arr2 = my_map.get(v2);
 		ArrayList<Vertex> arr3 = my_map.get(v3);
-		
+
 		arr1.add(v2);
-		
-		//first case: only one value in the arrayList
+
+		// first case: only one value in the arrayList
 		assertEquals(true, vert_list.edgeExists(v1, v2));
-		
+
 		arr1.add(v3);
-		
-		//second case: two values in arrayList (check each value) 
+
+		// second case: two values in arrayList (check each value)
 		assertEquals(true, vert_list.edgeExists(v1, v3));
 		assertEquals(true, vert_list.edgeExists(v1, v2));
-		
-		//third case: vertex is not in the arrayList
+
+		// third case: vertex is not in the arrayList
 		assertEquals(false, vert_list.edgeExists(v1, v4));
-		
-		//fourth case: empty arrayList 
+
+		// fourth case: empty arrayList
 		assertEquals(false, vert_list.edgeExists(v2, v1));
+	}
+
+	@Test
+	public void getDownstreamNeighborsTest() {
+		vert_list = new AdjacencyListGraph();
+
+		// add vertices to the graph
+		vert_list.addVertex(v1);
+		vert_list.addVertex(v2);
+		vert_list.addVertex(v3);
+		vert_list.addVertex(v4);
+
+		// create map to get the ArrayLists from each vertex
+		Map<Vertex, ArrayList<Vertex>> my_map;
+		my_map = vert_list.getMap();
+
+		// get the arrays from each vertex in the graph
+		ArrayList<Vertex> arr1 = my_map.get(v1);
+		List<Vertex> list1 = new ArrayList<Vertex>();
+		List<Vertex> list2 = new ArrayList<Vertex>();
+
+		// case 1: size equals 0
+		list1 = vert_list.getDownstreamNeighbors(v1);
+		assertEquals(0, list1.size());
+
+		arr1.add(v2);
+		list1 = vert_list.getDownstreamNeighbors(v1);
+
+		// case 2: one vertex down stream, and size = 1
+		assertEquals(arr1, list1);
+		assertEquals(1, list1.size());
+
+		arr1.add(v3);
+		list2 = vert_list.getDownstreamNeighbors(v1);
+
+		// case3: 2 vertices down stream, and size = 2
+		assertEquals(arr1, list2);
+		assertEquals(2, list2.size());
 	}
 	
 	@Test
-	public void getDownstreamNeighboursTest(){
-vert_list = new AdjacencyListGraph();
+	public void getUpstreamNeighbors(){
 		
+		vert_list = new AdjacencyListGraph();
+
 		// add vertices to the graph
 		vert_list.addVertex(v1);
 		vert_list.addVertex(v2);
@@ -158,19 +198,43 @@ vert_list = new AdjacencyListGraph();
 		Map<Vertex, ArrayList<Vertex>> my_map;
 		my_map = vert_list.getMap();
 		
-		// get the arrays from each vertex in the graph
 		ArrayList<Vertex> arr1 = my_map.get(v1);
 		ArrayList<Vertex> arr2 = my_map.get(v2);
-		ArrayList<Vertex> arr3 = new ArrayList<Vertex>();
+		ArrayList<Vertex> arr3 = my_map.get(v3);
+		ArrayList<Vertex> arr4 = my_map.get(v4);
 		
+		List<Vertex> list1 = new ArrayList<Vertex>();
+		List<Vertex> list2 = new ArrayList<Vertex>();
+
+		
+		//add v2, v3 and v4 as downstream edges to v1
 		arr1.add(v2);
-		arr1.add(v3);
+	    arr1.add(v3);
+	    
+	    //add v1 as a downstream edge to v2
+	    arr2.add(v1);
+	    
+	    //add v3 as a downstream edge to v3
+	    arr3.add(v3);
+	    
+	    //add v3 as a downstream edge to v4
+	    arr4.add(v3);
+
+	    //case 1: no upstreamEdges (size = 0)
+	    assertEquals(0, vert_list.getUpstreamNeighbors(v4).size());
 		
-		arr3 = my_map.getDownstreamNeighbours(v1);
-		
-		
-		
-		
+	    //case 2: 1 upStream Edge (size = 1) 
+	    list1.add(v2);
+	    assertEquals(1, vert_list.getUpstreamNeighbors(v1).size());
+	    assertEquals(list1, vert_list.getUpstreamNeighbors(v1));
+	    
+	    //case 3: more than one upStream edges (size = 3)
+	    list2.add(v1);
+	    list2.add(v3);
+	    list2.add(v4);
+	    
+	    assertEquals(3, vert_list.getUpstreamNeighbors(v3).size());
+	    assertEquals(list2, vert_list.getUpstreamNeighbors(v3));
 	}
 
 }
