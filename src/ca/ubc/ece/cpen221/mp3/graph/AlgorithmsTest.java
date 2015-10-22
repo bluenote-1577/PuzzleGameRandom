@@ -74,7 +74,7 @@ public class AlgorithmsTest {
 	@Test
 	public void BFSTest(){
 		//everything downstream, not cyclical
-		//3 members
+		//3 members, sparse matrix
 		
 		adjmatrix.addEdge(v1,v2);
 		adjmatrix.addEdge(v2, v3);
@@ -94,7 +94,10 @@ public class AlgorithmsTest {
 	}
 	
 	@Test
-	public void DFSTest(){
+	public void DFSTest1(){
+		
+		//everything downstream, not cyclical
+		//3 members, sparse matrix
 		
 		adjmatrix.addEdge(v1, v2);
 		adjmatrix.addEdge(v2, v3);
@@ -110,5 +113,50 @@ public class AlgorithmsTest {
 		
 		assertEquals(Algorithms.BFS(adjmatrix),compare);
 	}
+	
+	@Test
+	public void BFSTest2(){
+		
+		//everything downstream, not cyclical
+		//3 members, sparse matrix
+		
+		adjmatrix.addEdge(v1, v2);
+		adjmatrix.addEdge(v2, v3);
+		adjmatrix.addEdge(v1, v2);
+		Set<List<Vertex>> compare = new LinkedHashSet<List<Vertex>>();
+		compare.add(Arrays.asList(v1,v2,v3));
+		compare.add(Arrays.asList(v2,v3));
+		compare.add(Arrays.asList(v3));
+		compare.add(Arrays.asList(v4));
+		compare.add(Arrays.asList(v5));
+		compare.add(Arrays.asList(v6));
+		compare.add(Arrays.asList(v7));
+		
+		
+		assertEquals(Algorithms.BFS(adjmatrix),compare);
+	}
+	
+	@Test
+	public void DFSTest2(){
+		
+		//everything downstream, not cyclical
+		//3 members, sparse matrix
+		
+		adjmatrix.addEdge(v1, v2);
+		adjmatrix.addEdge(v2, v3);
+		Set<List<Vertex>> compare = new LinkedHashSet<List<Vertex>>();
+		compare.add(Arrays.asList(v1,v2,v3));
+		compare.add(Arrays.asList(v2,v3));
+		compare.add(Arrays.asList(v3));
+		compare.add(Arrays.asList(v4));
+		compare.add(Arrays.asList(v5));
+		compare.add(Arrays.asList(v6));
+		compare.add(Arrays.asList(v7));
+		
+		
+		assertEquals(Algorithms.DFS(adjmatrix),compare);
+	}
+	
+	
 
 }
