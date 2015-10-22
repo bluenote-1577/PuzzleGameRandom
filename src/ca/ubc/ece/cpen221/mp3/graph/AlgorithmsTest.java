@@ -36,7 +36,7 @@ public class AlgorithmsTest {
 	}
 	
 	@Test
-	public void ShortestDistanceTest() {
+	public void ShortestDistanceTest() throws NoPathException {
 		//first test, straight line
 		adjmatrix.addEdge(v1, v2);
 		adjmatrix.addEdge(v2, v3);
@@ -64,15 +64,17 @@ public class AlgorithmsTest {
 		
 		//distance of 1, neighbour
 		
-		assertEquals(Algorithms.shortestDistance(adjmatrix, v1, v2),1);
-		
-		
-		
+		assertEquals(Algorithms.shortestDistance(adjmatrix, v1, v2),1);		
 		
 	}
 	
+	@Test(expected = NoPathException.class)
+	public void ExceptionTest() throws NoPathException {
+		Algorithms.shortestDistance(adjmatrix, v1, v5);
+	}
+	
 	@Test
-	public void BFSTest(){
+	public void BFSTest1(){
 		//everything downstream, not cyclical
 		//3 members, sparse matrix
 		
@@ -92,6 +94,30 @@ public class AlgorithmsTest {
 		
 		//do more
 	}
+	
+	
+	@Test
+	public void BFSTest2(){
+		
+		//2 paths
+		
+		adjmatrix.addEdge(v1, v2);
+		adjmatrix.addEdge(v2, v3);
+		adjmatrix.addEdge(v1, v4);
+		adjmatrix.addEdge(v4,v5);
+		Set<List<Vertex>> compare = new LinkedHashSet<List<Vertex>>();
+		compare.add(Arrays.asList(v1,v2,v4,v3,v5));
+		compare.add(Arrays.asList(v2,v3));
+		compare.add(Arrays.asList(v3));
+		compare.add(Arrays.asList(v4,v5));
+		compare.add(Arrays.asList(v5));
+		compare.add(Arrays.asList(v6));
+		compare.add(Arrays.asList(v7));
+		
+		
+		assertEquals(Algorithms.BFS(adjmatrix),compare);
+	}
+	
 	
 	@Test
 	public void DFSTest1(){
@@ -114,48 +140,44 @@ public class AlgorithmsTest {
 		assertEquals(Algorithms.BFS(adjmatrix),compare);
 	}
 	
-	@Test
-	public void BFSTest2(){
-		
-		//everything downstream, not cyclical
-		//3 members, sparse matrix
-		
-		adjmatrix.addEdge(v1, v2);
-		adjmatrix.addEdge(v2, v3);
-		adjmatrix.addEdge(v1, v2);
-		Set<List<Vertex>> compare = new LinkedHashSet<List<Vertex>>();
-		compare.add(Arrays.asList(v1,v2,v3));
-		compare.add(Arrays.asList(v2,v3));
-		compare.add(Arrays.asList(v3));
-		compare.add(Arrays.asList(v4));
-		compare.add(Arrays.asList(v5));
-		compare.add(Arrays.asList(v6));
-		compare.add(Arrays.asList(v7));
-		
-		
-		assertEquals(Algorithms.BFS(adjmatrix),compare);
-	}
 	
 	@Test
 	public void DFSTest2(){
 		
-		//everything downstream, not cyclical
-		//3 members, sparse matrix
+		//2 paths
+		
 		
 		adjmatrix.addEdge(v1, v2);
 		adjmatrix.addEdge(v2, v3);
+		adjmatrix.addEdge(v1, v4);
+		adjmatrix.addEdge(v4, v5);
 		Set<List<Vertex>> compare = new LinkedHashSet<List<Vertex>>();
-		compare.add(Arrays.asList(v1,v2,v3));
+		compare.add(Arrays.asList(v1,v4,v5,v2,v3));
 		compare.add(Arrays.asList(v2,v3));
 		compare.add(Arrays.asList(v3));
-		compare.add(Arrays.asList(v4));
+		compare.add(Arrays.asList(v4,v5));
 		compare.add(Arrays.asList(v5));
 		compare.add(Arrays.asList(v6));
 		compare.add(Arrays.asList(v7));
 		
 		
 		assertEquals(Algorithms.DFS(adjmatrix),compare);
+		
 	}
+	
+	@Test
+	public void DFSTest3(){
+		//2 paths, one vertex connecting the two paths.
+		adjmatrix.addEdge(v1, v2);
+		adjmatrix.addEdge(v2, v3);
+		adjmatrix.addEdge(v1, v3);
+		Set<List<Vertex>> compare = new LinkedHashSet<List<Vertex>>();
+		compare.add(Arrays.asList(v1,v3,v2));
+		compare.add(Arrays.asList(v3));
+		compare.add(Arrays.asList(v2,v3));
+	}
+	
+	
 	
 	
 

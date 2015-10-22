@@ -27,8 +27,11 @@ public class Algorithms {
 	 * methods should be implemented here.
 	 * 
 	 * You should write the specs for this and all other methods.
+	 * @throws NoPathException 
 	 
-	 
+	 **/
+	
+	/*
 	 
 	 * returns the shortest distance between two vertices, a and b in the
 	 * Graph graph
@@ -37,8 +40,9 @@ public class Algorithms {
 	 * @param a the vertex we start from
 	 * @param b the vertex we end at
 	 * @return the smallest number of nodes traversed to get from vertex a to b.
+	 * if no edge is from a to b, then we throw a checked exception NoPathException
 	 */
-	public static int shortestDistance(Graph graph, Vertex a, Vertex b) {
+	public static int shortestDistance(Graph graph, Vertex a, Vertex b) throws NoPathException {
 		Map<Vertex,Integer> distanceMap = new HashMap<Vertex,Integer>();
 		Queue<Vertex> verticesToSearch = new LinkedList<Vertex>();
 		
@@ -57,8 +61,9 @@ public class Algorithms {
 				verticesToSearch.add(eachVertex);
 			}
 		}
-		
-		return distanceMap.get(b);
+		if(distanceMap.containsKey(b))
+			return distanceMap.get(b);
+		else throw new NoPathException("No path found between vertices");
 	}
 	
 	public static Set<List<Vertex>> BFS(Graph graph){
