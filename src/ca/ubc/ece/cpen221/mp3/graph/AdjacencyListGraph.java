@@ -56,7 +56,23 @@ public class AdjacencyListGraph implements Graph {
 	 * true iff an edge from v1 connects to v2
 	 */
 	public boolean edgeExists(Vertex v1, Vertex v2) {
-		return true;
+		boolean vertex_exists = false;
+
+		// obtain the arrayList from the vertex v1
+		ArrayList<Vertex> check_edge;
+		check_edge = vert_map.get(v1);
+		Vertex check_vertex;
+
+		// check all vertices inside v1's arrayList
+		for (int index = 0; index < check_edge.size(); index++) {
+			check_vertex = check_edge.get(index);
+
+			if (check_vertex.equals(v2))
+				vertex_exists = true;
+		}
+
+		return vertex_exists;
+
 	}
 
 	/**
@@ -70,7 +86,15 @@ public class AdjacencyListGraph implements Graph {
 	 * iff v has no downstream neighbors.
 	 */
 	public List<Vertex> getDownstreamNeighbors(Vertex v) {
-		return null;
+		ArrayList<Vertex> down_stream = new ArrayList<Vertex>(); //ArrayList to be returned 
+		ArrayList<Vertex> check_edges; //ArrayList for checking the Vertices 
+		
+		check_edges = vert_map.get(v);
+		for(int index = 0; index < check_edges.size(); index++){
+			down_stream.add(index, check_edges.get(index));
+		}
+		
+		return down_stream;
 	}
 
 	/**

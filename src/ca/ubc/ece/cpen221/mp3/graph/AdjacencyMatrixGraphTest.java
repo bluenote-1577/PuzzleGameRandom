@@ -1,7 +1,5 @@
 package ca.ubc.ece.cpen221.mp3.graph;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
 

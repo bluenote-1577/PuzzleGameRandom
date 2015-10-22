@@ -21,15 +21,15 @@ public class AdjacencyListGraphTest {
 	Vertex v3 = new Vertex(C);
 	Vertex v4 = new Vertex(D);
 
-	//the graph 
+	// the graph
 	AdjacencyListGraph vert_list;
 
 	@Test
 	public void addVertextTest() {
 
-		vert_list = new AdjacencyListGraph(); 
-		
-		// add vertices to the Adjacency List Graph 
+		vert_list = new AdjacencyListGraph();
+
+		// add vertices to the Adjacency List Graph
 		vert_list.addVertex(v1);
 		vert_list.addVertex(v2);
 
@@ -37,7 +37,7 @@ public class AdjacencyListGraphTest {
 		Map<Vertex, ArrayList<Vertex>> my_map;
 		my_map = vert_list.getMap();
 
-		//get the arrays from each vertex in the map 
+		// get the arrays from each vertex in the map
 		ArrayList<Vertex> arr1 = my_map.get(v1);
 		ArrayList<Vertex> arr2 = my_map.get(v2);
 
@@ -55,55 +55,94 @@ public class AdjacencyListGraphTest {
 
 		// two of the same vertices in each array
 		assertEquals(arr1, arr2);
-		
+
 	}
-	
+
 	@Test
 	public void addEdgeTest() {
-		
+
 		vert_list = new AdjacencyListGraph();
-		
-		//add vertices to the graph 
+
+		// add vertices to the graph
 		vert_list.addVertex(v1);
 		vert_list.addVertex(v2);
 		vert_list.addVertex(v3);
 		vert_list.addVertex(v4);
+
+		// create map to get the ArrayLists from each vertex
+		Map<Vertex, ArrayList<Vertex>> my_map;
+		my_map = vert_list.getMap();
+
+		// get the arrays from each vertex in the graph
+		ArrayList<Vertex> arr1 = my_map.get(v1);
+		ArrayList<Vertex> arr2 = my_map.get(v2);
+		ArrayList<Vertex> arr3 = my_map.get(v3);
+		ArrayList<Vertex> arr4 = new ArrayList<Vertex>(); // created a new array
+															// to change things
+															// up
+
+		vert_list.addEdge(v1, v2);
+		arr3.add(0, v2);
+
+		// check to see if there is an edge from v1 to v2
+		assertEquals(arr1, arr3);
+
+		vert_list.addEdge(v1, v4);
+		arr3.add(v4);
+
+		// check to see if there is an edge from v1 to v2 and from v1 to v4
+		assertEquals(arr1, arr3);
+
+		vert_list.addEdge(v2, v4);
+		arr4.add(v4);
+
+		// check to see if there is an edge from v2 to v4
+		assertEquals(arr2, arr4);
+
+		vert_list.addEdge(v2, v1);
+		arr4.add(v1);
+
+		// check to see if there is an edge from v2 to v4 and from v2 to v1
+		assertEquals(arr2, arr4);
+
+	}
+
+	@Test
+	public void edgeExistsTest() {
+		vert_list = new AdjacencyListGraph();
 		
+		// add vertices to the graph
+		vert_list.addVertex(v1);
+		vert_list.addVertex(v2);
+		vert_list.addVertex(v3);
+		vert_list.addVertex(v4);
+
 		// create map to get the ArrayLists from each vertex
 		Map<Vertex, ArrayList<Vertex>> my_map;
 		my_map = vert_list.getMap();
 		
-		//get the arrays from each vertex in the graph 
+		// get the arrays from each vertex in the graph
 		ArrayList<Vertex> arr1 = my_map.get(v1);
 		ArrayList<Vertex> arr2 = my_map.get(v2);
 		ArrayList<Vertex> arr3 = my_map.get(v3);
-		ArrayList<Vertex> arr4 = new ArrayList<Vertex>(); //created a new array to change things up 
 		
-		vert_list.addEdge(v1, v2);
-		arr3.add(0, v2);
+		arr1.add(v2);
 		
-		//check to see if there is an edge from v1 to v2
-		assertEquals(arr1, arr3);
+		//first case: only one value in the arrayList
+		assertEquals(true, vert_list.edgeExists(v1, v2));
 		
-		vert_list.addEdge(v1, v4);
-		arr3.add(v4);
+		arr1.add(v3);
 		
-		//check to see if there is an edge from v1 to v2 and from v1 to v4
-		assertEquals (arr1, arr3);
+		//second case: two values in arrayList (check each value) 
+		assertEquals(true, vert_list.edgeExists(v1, v3));
+		assertEquals(true, vert_list.edgeExists(v1, v2));
 		
-		vert_list.addEdge(v2, v4);
-		arr4.add(v4);
+		//third case: vertex is not in the arrayList
+		assertEquals(false, vert_list.edgeExists(v1, v4));
 		
-		//check to see if there is an edge from v2 to v4
-		assertEquals (arr2, arr4);
-		
-		vert_list.addEdge(v2, v1);
-		arr4.add(v1);
-		
-		//check to see if there is an edge from v2 to v4 and from v2 to v1
-		assertEquals (arr2, arr4);
-		
+		//fourth case: empty arrayList 
+		assertEquals(false, vert_list.edgeExists(v2, v1));
 	}
-
+	
 
 }
