@@ -144,5 +144,33 @@ public class AdjacencyListGraphTest {
 		assertEquals(false, vert_list.edgeExists(v2, v1));
 	}
 	
+	@Test
+	public void getDownstreamNeighboursTest(){
+vert_list = new AdjacencyListGraph();
+		
+		// add vertices to the graph
+		vert_list.addVertex(v1);
+		vert_list.addVertex(v2);
+		vert_list.addVertex(v3);
+		vert_list.addVertex(v4);
+
+		// create map to get the ArrayLists from each vertex
+		Map<Vertex, ArrayList<Vertex>> my_map;
+		my_map = vert_list.getMap();
+		
+		// get the arrays from each vertex in the graph
+		ArrayList<Vertex> arr1 = my_map.get(v1);
+		ArrayList<Vertex> arr2 = my_map.get(v2);
+		ArrayList<Vertex> arr3 = new ArrayList<Vertex>();
+		
+		arr1.add(v2);
+		arr1.add(v3);
+		
+		arr3 = my_map.getDownstreamNeighbours(v1);
+		
+		
+		
+		
+	}
 
 }
