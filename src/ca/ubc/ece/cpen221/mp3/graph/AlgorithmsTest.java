@@ -2,6 +2,12 @@ package ca.ubc.ece.cpen221.mp3.graph;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -63,6 +69,46 @@ public class AlgorithmsTest {
 		
 		
 		
+	}
+	
+	@Test
+	public void BFSTest(){
+		//everything downstream, not cyclical
+		//3 members
+		
+		adjmatrix.addEdge(v1,v2);
+		adjmatrix.addEdge(v2, v3);
+		Set<List<Vertex>> compare = new LinkedHashSet<List<Vertex>>();
+		compare.add(Arrays.asList(v1,v2,v3));
+		compare.add(Arrays.asList(v2,v3));
+		compare.add(Arrays.asList(v3));
+		compare.add(Arrays.asList(v4));
+		compare.add(Arrays.asList(v5));
+		compare.add(Arrays.asList(v6));
+		compare.add(Arrays.asList(v7));
+		
+		
+		assertEquals(Algorithms.BFS(adjmatrix),compare);
+		
+		//do more
+	}
+	
+	@Test
+	public void DFSTest(){
+		
+		adjmatrix.addEdge(v1, v2);
+		adjmatrix.addEdge(v2, v3);
+		Set<List<Vertex>> compare = new LinkedHashSet<List<Vertex>>();
+		compare.add(Arrays.asList(v1,v2,v3));
+		compare.add(Arrays.asList(v2,v3));
+		compare.add(Arrays.asList(v3));
+		compare.add(Arrays.asList(v4));
+		compare.add(Arrays.asList(v5));
+		compare.add(Arrays.asList(v6));
+		compare.add(Arrays.asList(v7));
+		
+		
+		assertEquals(Algorithms.BFS(adjmatrix),compare);
 	}
 
 }

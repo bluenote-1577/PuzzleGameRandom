@@ -1,9 +1,14 @@
 package ca.ubc.ece.cpen221.mp3.graph;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
+import java.util.Stack;
 
 import ca.ubc.ece.cpen221.mp3.staff.Graph;
 import ca.ubc.ece.cpen221.mp3.staff.Vertex;
@@ -54,6 +59,59 @@ public class Algorithms {
 		}
 		
 		return distanceMap.get(b);
+	}
+	
+	public static Set<List<Vertex>> BFS(Graph graph){
+		Set<List<Vertex>> myLists = new LinkedHashSet<List<Vertex>>();
+		List<Vertex> allVertices = graph.getVertices();
+		Queue<Vertex> verticesToSearch = new LinkedList<Vertex>();
+		
+	
+		
+		for(Vertex vertex : allVertices){
+			verticesToSearch.add(vertex);
+			List<Vertex> BFSVertices = new LinkedList<Vertex>();
+			
+			while(!verticesToSearch.isEmpty()){
+				Vertex vertexToSearch = verticesToSearch.remove();
+				if(!BFSVertices.contains(vertexToSearch))
+					BFSVertices.add(vertexToSearch);
+				for(Vertex eachVertex : graph.getDownstreamNeighbors(vertexToSearch)){
+					verticesToSearch.add(eachVertex);
+				}
+			}
+			myLists.add(BFSVertices);
+		}
+		
+		return myLists;
+	}
+	
+	public static Set<List<Vertex>> DFS(Graph graph){
+		Stack<Vertex> verticesToSearch = new Stack<Vertex>();
+		Set<List<Vertex>> myLists = new LinkedHashSet<List<Vertex>>();
+		List<Vertex> allVertices = graph.getVertices();
+
+		
+		for(Vertex vertex : allVertices){
+			verticesToSearch.add(vertex);
+			List<Vertex> BFSVertices = new LinkedList<Vertex>();
+			
+			while(!verticesToSearch.isEmpty()){
+				
+				Vertex vertexToSearch = verticesToSearch.pop();
+				
+				if(!BFSVertices.contains(vertexToSearch)){
+					BFSVertices.add(vertexToSearch);
+					for(Vertex eachVertex : graph.getDownstreamNeighbors(vertexToSearch)){
+						verticesToSearch.add(eachVertex);
+					}
+				}
+				
+			}
+			myLists.add(BFSVertices);
+		}
+		return myLists;
+		
 	}
 	
 	
