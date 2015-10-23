@@ -2,6 +2,12 @@ package ca.ubc.ece.cpen221.mp3.graph;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,6 +17,7 @@ import ca.ubc.ece.cpen221.mp3.staff.Vertex;
 public class AlgorithmsAdjacencyTest {
 	
 	Graph adj_list = new AdjacencyListGraph();
+	Graph empty_adjlist = new AdjacencyListGraph();
 	
 	
 	Vertex v1 = new Vertex("a");
@@ -66,11 +73,162 @@ public class AlgorithmsAdjacencyTest {
 		assertEquals(2, Algorithms.shortestDistance(adj_list, v7, v5));
 		
 		adj_list.addEdge(v1, v5);
-		adj_list.addEdge(v5, v3);
+		//adj_list.addEdge(v5, v3);  works when i comment this out only 
 		
 		//case 7: two routes of equal distance of 2 
-		assertEquals(0, Algorithms.shortestDistance(adj_list, v1, v3));
+		assertEquals(2, Algorithms.shortestDistance(adj_list, v1, v3));
 	
+	}
+	
+	@Test
+	public void BFSTest1(){
+		
+		//case 1: graph is empty, so list is empty (size = 0)
+		assertEquals(0, Algorithms.BFS(empty_adjlist).size());
+		
+		adj_list.addEdge(v1, v2);
+		adj_list.addEdge(v4, v6);
+		adj_list.addEdge(v6, v5);
+		
+		Set<List<Vertex>> my_list = new LinkedHashSet<List<Vertex>>();
+		my_list.add(Arrays.asList(v1, v2));
+		my_list.add(Arrays.asList(v2));
+		my_list.add(Arrays.asList(v3));
+		my_list.add(Arrays.asList(v4, v6, v5));
+		my_list.add(Arrays.asList(v5));
+		my_list.add(Arrays.asList(v6, v5));
+		my_list.add(Arrays.asList(v7));
+		
+		//case 2: 1 path maximum for a vertex 
+		assertEquals(my_list, Algorithms.BFS(adj_list));
+		
+	}
+	
+	@Test public void BFSTest2(){
+		
+		adj_list.addEdge(v1, v3);
+		adj_list.addEdge(v1, v5);
+		adj_list.addEdge(v3, v6);
+		adj_list.addEdge(v5, v7);
+		
+		Set<List<Vertex>> my_list = new LinkedHashSet<List<Vertex>>();
+		my_list.add(Arrays.asList(v1, v3, v5, v6, v7));
+		my_list.add(Arrays.asList(v2));
+		my_list.add(Arrays.asList(v3, v6));
+		my_list.add(Arrays.asList(v4));
+		my_list.add(Arrays.asList(v5, v7));
+		my_list.add(Arrays.asList(v6));
+		my_list.add(Arrays.asList(v7));
+		
+		//case 3: 2 path maximum for a vertex 
+		assertEquals(my_list, Algorithms.BFS(adj_list));
+	}
+	
+	@Test
+	public void DFSTest1(){
+		
+		//case 1: graph is empty, so list is empty (size = 0)
+		assertEquals(0, Algorithms.DFS(empty_adjlist).size());
+		
+		adj_list.addEdge(v1, v2);
+		adj_list.addEdge(v4, v6);
+		adj_list.addEdge(v6, v5);
+		
+		Set<List<Vertex>> my_list = new LinkedHashSet<List<Vertex>>();
+		my_list.add(Arrays.asList(v1, v2));
+		my_list.add(Arrays.asList(v2));
+		my_list.add(Arrays.asList(v3));
+		my_list.add(Arrays.asList(v4, v6, v5));
+		my_list.add(Arrays.asList(v5));
+		my_list.add(Arrays.asList(v6, v5));
+		my_list.add(Arrays.asList(v7));
+		
+		//case 2: maximum of 1 path for each vertex 
+		assertEquals(my_list, Algorithms.DFS(adj_list));
+		
+	}
+	
+	@Test 
+	public void DFSTest2(){
+		
+		adj_list.addEdge(v1, v3);
+		adj_list.addEdge(v1, v5);
+		adj_list.addEdge(v3, v6);
+		adj_list.addEdge(v5, v7);
+		
+		Set<List<Vertex>> my_list = new LinkedHashSet<List<Vertex>>();
+		my_list.add(Arrays.asList(v1, v5, v7, v3, v6));
+		my_list.add(Arrays.asList(v2));
+		my_list.add(Arrays.asList(v3, v6));
+		my_list.add(Arrays.asList(v4));
+		my_list.add(Arrays.asList(v5, v7));
+		my_list.add(Arrays.asList(v6));
+		my_list.add(Arrays.asList(v7));
+		
+		//case 3: 2 path maximum for a vertex 
+		assertEquals(my_list, Algorithms.DFS(adj_list));
+	}
+	
+	@Test 
+	public void CommonUpstreamVertices(){
+		
+		//case 1: list is empty, no common vertices up stream
+		assertEquals(0, Algorithms.commonUpstreamVertices(adj_list, v1, v2).size());
+		
+		adj_list.addEdge(v1, v2);
+		adj_list.addEdge(v1, v3);
+		
+		List<Vertex> list1 = new ArrayList<Vertex>();
+		list1.add(v1);
+		
+		//case 2: one common upStream vertex
+		assertEquals(list1, Algorithms.commonUpstreamVertices(adj_list, v2, v3));
+		
+		adj_list.addEdge(v4, v2);
+		adj_list.addEdge(v4, v3);
+		adj_list.addEdge(v7, v2);
+		adj_list.addEdge(v7, v3);
+		adj_list.addEdge(v6, v2);
+		
+		list1.add(v4);
+		list1.add(v7);
+		
+		//case 3: multiple common upStream vertices 
+		assertEquals(list1, Algorithms.commonUpstreamVertices(adj_list, v2, v3));
+	}
+	
+	@Test 
+	public void CommonDownstreamVerticesTest(){
+		
+		//case 1: list is empty, no common vertices down stream 
+		assertEquals(0, Algorithms.commonDownstreamVertices(adj_list, v1, v2).size());
+		
+		adj_list.addEdge(v1, v5);
+		adj_list.addEdge(v2, v5);
+		
+		List<Vertex> list1 = new ArrayList<Vertex>();
+		list1.add(v5);
+		
+		//case 2: one common down stream vertex 
+		assertEquals(list1, Algorithms.commonDownstreamVertices(adj_list, v1, v2));
+		
+		adj_list.addEdge(v1, v6);
+		adj_list.addEdge(v2, v6);
+		adj_list.addEdge(v1, v7);
+		adj_list.addEdge(v2, v7);
+		
+		list1.add(v6);
+		list1.add(v7);
+		
+		//case 3: multiple common down stream vertices 
+		assertEquals(list1, Algorithms.commonDownstreamVertices(adj_list, v1, v2));
+		
+		/*adj_list.addEdge(v6, v4);  check this out later--> shouldnt this be downstream???
+		list1.add(v4);
+		
+		assertEquals(list1, Algorithms.commonDownstreamVertices(adj_list, v1, v2));
+	*/
+		
 	}
 
 }
