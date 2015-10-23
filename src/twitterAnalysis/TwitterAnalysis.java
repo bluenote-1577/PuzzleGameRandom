@@ -29,7 +29,7 @@ public class TwitterAnalysis {
 
 		File file = new File("datasets/outTest.txt");
 
-		// if file doesnt exists, then create it
+		// if the file for writing doesnt exist, then create it
 		if (!file.exists()) {
 			file.createNewFile();
 		}
