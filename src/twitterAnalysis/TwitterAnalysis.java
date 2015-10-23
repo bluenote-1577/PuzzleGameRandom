@@ -87,7 +87,7 @@ public class TwitterAnalysis {
 	 * @throws IOException if bw is invalid.
 	 */
 
-	private static void commonInfluencers(String user1, String user2, BufferedWriter bw, Graph graph)
+	public static void commonInfluencers(String user1, String user2, BufferedWriter bw, Graph graph)
 			throws IOException {
 
 		bw.write("query: commonInfluencers " + user1 + " " + user2 + "\n");
@@ -98,7 +98,7 @@ public class TwitterAnalysis {
 		bw.write("</result>\n");
 	}
 
-	private static void numRetweets(String user1, String user2, BufferedWriter bw, Graph graph) {
+	public static void numRetweets(String user1, String user2, BufferedWriter bw, Graph graph) {
 
 	}
 
@@ -109,7 +109,7 @@ public class TwitterAnalysis {
 	 * @throws FileNotFoundException
 	 */
 	
-	private static void twitterScan(String filename, Graph graph) throws FileNotFoundException {
+	public static void twitterScan(String filename, Graph graph) throws FileNotFoundException {
 		Scanner twitterscan = null;
 		try {
 			twitterscan = new Scanner(new BufferedReader(new FileReader(filename)));
