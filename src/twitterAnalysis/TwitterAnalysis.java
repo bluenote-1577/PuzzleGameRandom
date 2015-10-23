@@ -33,18 +33,22 @@ public class TwitterAnalysis {
 		if (!file.exists()) {
 			file.createNewFile();
 		}
+		//create a scanner to read our queries, and a buffered
+		//writer to write to our output.
 		Scanner queryScan = new Scanner(new BufferedReader(new FileReader("datasets/test1.txt")));
 		BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 
 		try {
 			queryScan = new Scanner(new BufferedReader(new FileReader("datasets/query.txt")));
-
+			
 			while (queryScan.hasNext()) {
+				//scans 4 elements in the line
 				String queryType = queryScan.next();
 				String user1 = queryScan.next();
 				String user2 = queryScan.next();
 				String question = queryScan.next();
 
+				//make sure that the query isn't a duplicate 
 				if (!question.equals("?") || allQueries.containsKey(user1 + user2 + queryType))
 					;
 
@@ -57,7 +61,10 @@ public class TwitterAnalysis {
 					if (queryType.equals("numRetweets")) {
 						numRetweets(user1, user2, bw, myGraph);
 					}
+					//puts possible combinations of user1 and user2 in the map
+					//to check for duplicates
 					allQueries.put((user1 + user2 + queryType), true);
+					allQueries.put((user2 + user1 + queryType), true);
 
 				}
 			}
@@ -71,6 +78,14 @@ public class TwitterAnalysis {
 		}
 
 	}
+	/**
+	 * Writes to our output file with the correct format for the corresponding query.
+	 * @param user1 the first user scanned in the file
+	 * @param user2 the second user scanned in the file.
+	 * @param bw our buffer writer
+	 * @param graph : our Graph, must contain vertices with user1 and user2.
+	 * @throws IOException if bw is invalid.
+	 */
 
 	private static void commonInfluencers(String user1, String user2, BufferedWriter bw, Graph graph)
 			throws IOException {
@@ -78,7 +93,7 @@ public class TwitterAnalysis {
 		bw.write("query: commonInfluencers " + user1 + " " + user2 + "\n");
 		bw.write("<result>\n");
 		for (Vertex vertex : Algorithms.commonDownstreamVertices(graph, new Vertex(user1), new Vertex(user2))) {
-			bw.write(vertex.toString() + "\n");
+			bw.write("\t" + vertex.toString() + "\n");
 		}
 		bw.write("</result>\n");
 	}
@@ -87,6 +102,13 @@ public class TwitterAnalysis {
 
 	}
 
+	/**
+	 * 
+	 * @param filename
+	 * @param graph
+	 * @throws FileNotFoundException
+	 */
+	
 	private static void twitterScan(String filename, Graph graph) throws FileNotFoundException {
 		Scanner twitterscan = null;
 		try {

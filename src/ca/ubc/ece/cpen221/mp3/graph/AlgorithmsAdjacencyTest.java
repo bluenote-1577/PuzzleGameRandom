@@ -73,7 +73,7 @@ public class AlgorithmsAdjacencyTest {
 		assertEquals(2, Algorithms.shortestDistance(adj_list, v7, v5));
 		
 		adj_list.addEdge(v1, v5);
-		//adj_list.addEdge(v5, v3);  works when i comment this out only 
+		adj_list.addEdge(v5, v3); 
 		
 		//case 7: two routes of equal distance of 2 
 		assertEquals(2, Algorithms.shortestDistance(adj_list, v1, v3));

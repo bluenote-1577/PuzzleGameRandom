@@ -60,8 +60,9 @@ public class Algorithms {
 				if(distanceMap.containsKey(eachVertex)==false ||
 						distanceMap.get(eachVertex) > vertexDistance+1){
 				distanceMap.put(eachVertex, vertexDistance+1);
-				}
 				verticesToSearch.add(eachVertex);
+				}
+			
 			}
 		}
 		if(distanceMap.containsKey(b))
@@ -90,13 +91,18 @@ public class Algorithms {
 		for(Vertex vertex : allVertices){
 			verticesToSearch.add(vertex);
 			List<Vertex> BFSVertices = new LinkedList<Vertex>();
+			Set<Vertex> visited = new LinkedHashSet<Vertex>();
 			
 			while(!verticesToSearch.isEmpty()){
+				
 				Vertex vertexToSearch = verticesToSearch.remove();
 				if(!BFSVertices.contains(vertexToSearch))
 					BFSVertices.add(vertexToSearch);
 				for(Vertex eachVertex : graph.getDownstreamNeighbors(vertexToSearch)){
-					verticesToSearch.add(eachVertex);
+					if(!visited.contains(eachVertex)){
+						visited.add(eachVertex);
+						verticesToSearch.add(eachVertex);
+					}
 				}
 			}
 			myLists.add(BFSVertices);
