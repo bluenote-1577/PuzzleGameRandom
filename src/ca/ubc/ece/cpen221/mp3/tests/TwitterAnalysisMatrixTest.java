@@ -13,6 +13,7 @@ import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -62,7 +63,7 @@ public class TwitterAnalysisMatrixTest {
 				String question = queryScan.next();
 
 				//make sure that the query isn't a duplicate 
-				if (!question.equals("?") || allQueries.containsKey(user1 + user2 + queryType))
+				if (!question.equals("?") || allQueries.containsKey(user1 +"." +user2 + queryType))
 					;
 
 				else {
@@ -76,8 +77,8 @@ public class TwitterAnalysisMatrixTest {
 					}
 					//puts possible combinations of user1 and user2 in the map
 					//to check for duplicates
-					allQueries.put((user1 + user2 + queryType), true);
-					allQueries.put((user2 + user1 + queryType), true);
+					allQueries.put((user1 +"."+ user2 + queryType), true);
+					allQueries.put((user2 + "."+user1 + queryType), true);
 
 				}
 			}
@@ -89,6 +90,13 @@ public class TwitterAnalysisMatrixTest {
 				bw.close();
 			}
 		}
+		
+		String testOut = new String(Files.readAllBytes(Paths.get("datasets/outputTest.txt")));
+		String testCompare = new String(Files.readAllBytes(Paths.get("datasets/outtest1.txt")));
+		testCompare.replaceAll("[\n\r\t]", "");
+		testOut.replaceAll("[\n\r\t]", "");
+		//IMPORTANT: Files are ANSI encoding and UNIX format.
+		assertEquals(testOut,testCompare);
 		
 		try {
 		    file.delete();

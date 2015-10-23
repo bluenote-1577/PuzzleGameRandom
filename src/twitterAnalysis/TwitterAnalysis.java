@@ -39,7 +39,7 @@ public class TwitterAnalysis {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 
 		try {
-			queryScan = new Scanner(new BufferedReader(new FileReader("datasets/query.txt")));
+			queryScan = new Scanner(new BufferedReader(new FileReader("datasets/queryTest1.txt")));
 			
 			while (queryScan.hasNext()) {
 				//scans 4 elements in the line

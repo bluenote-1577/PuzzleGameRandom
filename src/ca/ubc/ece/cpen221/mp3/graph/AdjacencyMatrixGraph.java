@@ -15,7 +15,7 @@ public class AdjacencyMatrixGraph implements Graph {
 	private final ArrayList<Vertex> allVertices = new ArrayList<Vertex>();
 	/**
 	 * Changes our matrix to accommodate for the new vertex that is not
-	 * being pointed to. The vertex is then placed inside the hashmap. 
+	 * being pointed to.
 	 * Does nothing if the vertex is already inside.
 	 * @param v the vertex we wish to put inside of our map and be represented
 	 * by our matrix.
@@ -43,13 +43,21 @@ public class AdjacencyMatrixGraph implements Graph {
 	/**
 	 * this is a method for junit testing that returns my matrix
 	 * so that I can test it easily.
-	 * @return matrix
+	 * @return matrix returned matrix
 	 */
 	public ArrayList<ArrayList<Boolean>> test(){
 		return matrix;
 	}
 	
 	@Override
+	
+	/**
+	 * Adds an edge from v1 to v2.
+	 *
+	 * Precondition: v1 and v2 are vertices in the graph.
+	 * @param v1 : vertex the edge goes from.
+	 * @param v2 : vertex the edge goes to.
+	 */
 	public void addEdge(Vertex v1, Vertex v2){
 
 		
@@ -61,6 +69,14 @@ public class AdjacencyMatrixGraph implements Graph {
 		
 	}
 	
+	/**
+	 * Check if there is an edge from v1 to v2.
+	 *
+	 * Precondition: v1 and v2 are vertices in the graph Postcondition: return
+	 * true if an edge from v1 connects to v2
+	 * @param v1 the edge 
+	 */
+	
 	@Override
 	public boolean edgeExists(Vertex v1, Vertex v2){
 	
@@ -70,6 +86,17 @@ public class AdjacencyMatrixGraph implements Graph {
 		
 		return matrix.get(index1).get(index2);
 	}
+	
+	/**
+	 * Get an array containing all downstream vertices adjacent to v.
+	 *
+	 * Precondition: v is a vertex in the graph
+	 * 
+	 * Postcondition: returns a list containing each vertex w such that there is
+	 * an edge from v to w. The size of the list must be as small as possible
+	 * (No trailing null elements). This method should return a list of size 0
+	 * iff v has no downstream neighbors.
+	 */
 	
 	@Override
 	public List<Vertex> getDownstreamNeighbors(Vertex v){

@@ -1,4 +1,4 @@
-package ca.ubc.ece.cpen221.mp3.graph;
+package ca.ubc.ece.cpen221.mp3.tests;
 
 import static org.junit.Assert.*;
 
@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import ca.ubc.ece.cpen221.mp3.graph.AdjacencyListGraph;
 import ca.ubc.ece.cpen221.mp3.staff.Vertex;
 
 public class AdjacencyListGraphTest {

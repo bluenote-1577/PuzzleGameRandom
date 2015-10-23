@@ -1,4 +1,4 @@
-package ca.ubc.ece.cpen221.mp3.graph;
+package ca.ubc.ece.cpen221.mp3.tests;
 
 import static org.junit.Assert.*;
 
@@ -11,10 +11,13 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import ca.ubc.ece.cpen221.mp3.graph.AdjacencyListGraph;
+import ca.ubc.ece.cpen221.mp3.graph.Algorithms;
+import ca.ubc.ece.cpen221.mp3.graph.NoPathException;
 import ca.ubc.ece.cpen221.mp3.staff.Graph;
 import ca.ubc.ece.cpen221.mp3.staff.Vertex;
 
-public class AlgorithmsAdjacencyTest {
+public class AlgorithmsListTest {
 	
 	Graph adj_list = new AdjacencyListGraph();
 	Graph empty_adjlist = new AdjacencyListGraph();

@@ -1,0 +1,13 @@
+query: commonInfluencers 1 5
+<result>
+	2
+	3
+	4
+</result>
+query: commonInfluencers 1 4
+<result>
+</result>
+query: commonInfluencers 1 2
+<result>
+	7
+</result>
