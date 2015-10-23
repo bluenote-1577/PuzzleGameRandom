@@ -73,6 +73,8 @@ public class AlgorithmsTest {
 	@Test(expected = NoPathException.class)
 	public void ExceptionTest() throws NoPathException {
 		Algorithms.shortestDistance(adjmatrix, v1, v5);
+		adjmatrix.addEdge(v1, v5);;
+		Algorithms.shortestDistance(adjmatrix, v1, v5);
 	}
 	
 	@Test
