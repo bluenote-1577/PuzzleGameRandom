@@ -82,6 +82,13 @@ public class Algorithms {
 	 * called on every vertex. Returns an empty list if the graph is empty.
 	 */
 	public static Set<List<Vertex>> BFS(Graph graph){
+		/**
+		 * myLists is set of lists returned at the end.
+		 * allVertices is the collection containing
+		 * every vertex in our graph.
+		 * verticesToSearch is the queue we use in order
+		 * to execute BFS.
+		 */
 		Set<List<Vertex>> myLists = new LinkedHashSet<List<Vertex>>();
 		List<Vertex> allVertices = graph.getVertices();
 		Queue<Vertex> verticesToSearch = new LinkedList<Vertex>();
@@ -91,14 +98,20 @@ public class Algorithms {
 		for(Vertex vertex : allVertices){
 			verticesToSearch.add(vertex);
 			List<Vertex> BFSVertices = new LinkedList<Vertex>();
+			//we need visited to indicate which vertices have been visited
+			//so we don't loop infinitely
 			Set<Vertex> visited = new LinkedHashSet<Vertex>();
 			
 			while(!verticesToSearch.isEmpty()){
 				
 				Vertex vertexToSearch = verticesToSearch.remove();
+				//add to BFSVertices, the list we add to myLists
+				//only if the vertex is unique and hasn't been traversed already.
 				if(!BFSVertices.contains(vertexToSearch))
 					BFSVertices.add(vertexToSearch);
 				for(Vertex eachVertex : graph.getDownstreamNeighbors(vertexToSearch)){
+					//only add to queue, that is, search it, if 
+					// we haven't already visited it.
 					if(!visited.contains(eachVertex)){
 						visited.add(eachVertex);
 						verticesToSearch.add(eachVertex);
@@ -123,6 +136,10 @@ public class Algorithms {
 	 * an empty set of lists if graph is empty.
 	 */
 	public static Set<List<Vertex>> DFS(Graph graph){
+		/**
+		 * use a stack to model recursive behavior.
+		 * we return myLists.
+		 */
 		Stack<Vertex> verticesToSearch = new Stack<Vertex>();
 		Set<List<Vertex>> myLists = new LinkedHashSet<List<Vertex>>();
 		List<Vertex> allVertices = graph.getVertices();
@@ -130,13 +147,16 @@ public class Algorithms {
 		//calls DFS on all vertices, not just one vertex
 		for(Vertex vertex : allVertices){
 		
+			//start searching vertex
+			//BFSVertices is a list of all the vertices traversed.
 			verticesToSearch.add(vertex);
 			List<Vertex> BFSVertices = new LinkedList<Vertex>();
 			
 			while(!verticesToSearch.isEmpty()){
 				
 				Vertex vertexToSearch = verticesToSearch.pop();
-				
+				//we add a vertex to the BFSVertices list only
+				//if we haven't traversed it already.
 				if(!BFSVertices.contains(vertexToSearch)){
 					BFSVertices.add(vertexToSearch);
 					for(Vertex eachVertex : graph.getDownstreamNeighbors(vertexToSearch)){
