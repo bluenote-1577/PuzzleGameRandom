@@ -40,7 +40,7 @@ public class AlgorithmsAdjacencyTest {
 	}
 
 	@Test
-	public void shortestDistaneTest() throws NoPathException {
+	public void shortestDistanceTest() throws NoPathException {
 	
 		//case 1: distance is 0 (distance between vertex and itself) 
 		assertEquals(0, Algorithms.shortestDistance(adj_list, v1, v1));
