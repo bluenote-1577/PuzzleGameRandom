@@ -16,10 +16,13 @@ public class AdjacencyMatrixGraph implements Graph {
 	/**
 	 * Changes our matrix to accommodate for the new vertex that is not
 	 * being pointed to. The vertex is then placed inside the hashmap. 
+	 * Does nothing if the vertex is already inside.
 	 * @param v the vertex we wish to put inside of our map and be represented
 	 * by our matrix.
 	 */
 	public void addVertex(Vertex v){
+		if(allVertices.contains(v))
+			return;
 		int size = matrix.size();
 		
 		for (ArrayList<Boolean> row : matrix){

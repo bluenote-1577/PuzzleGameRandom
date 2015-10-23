@@ -47,6 +47,7 @@ public class Algorithms {
 		Queue<Vertex> verticesToSearch = new LinkedList<Vertex>();
 		
 		verticesToSearch.add(a);
+		//first vertex has distance 0
 		distanceMap.put(a, 0);
 		
 		while(!verticesToSearch.isEmpty()){
@@ -54,6 +55,8 @@ public class Algorithms {
 			int vertexDistance = distanceMap.get(vertexToSearch);
 			
 			for(Vertex eachVertex : graph.getDownstreamNeighbors(vertexToSearch)){
+				//if the vertex hasn't been discovered,
+				//we give it a value of distance of the previous node + 1
 				if(distanceMap.containsKey(eachVertex)==false ||
 						distanceMap.get(eachVertex) > vertexDistance+1){
 				distanceMap.put(eachVertex, vertexDistance+1);
@@ -83,7 +86,7 @@ public class Algorithms {
 		Queue<Vertex> verticesToSearch = new LinkedList<Vertex>();
 		
 	
-		
+		//calls BFS on all vertices
 		for(Vertex vertex : allVertices){
 			verticesToSearch.add(vertex);
 			List<Vertex> BFSVertices = new LinkedList<Vertex>();
@@ -118,8 +121,9 @@ public class Algorithms {
 		Set<List<Vertex>> myLists = new LinkedHashSet<List<Vertex>>();
 		List<Vertex> allVertices = graph.getVertices();
 
-		
+		//calls DFS on all vertices, not just one vertex
 		for(Vertex vertex : allVertices){
+		
 			verticesToSearch.add(vertex);
 			List<Vertex> BFSVertices = new LinkedList<Vertex>();
 			
