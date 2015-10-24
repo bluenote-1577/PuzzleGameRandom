@@ -25,7 +25,7 @@ public class TwitterAnalysis {
 		Map<String, Boolean> allQueries = new HashMap<String, Boolean>();
 		Graph myGraph = new AdjacencyMatrixGraph();
 
-		twitterScan("datasets/test1.txt", myGraph);
+		twitterScan("datasets/twitter.txt", myGraph);
 
 		File file = new File(args[1]);
 
@@ -133,15 +133,14 @@ public class TwitterAnalysis {
 	
 	public static void twitterScan(String filename, Graph graph) throws FileNotFoundException {
 		Scanner twitterscan = null;
+		int lol = 0;
 		try {
 			twitterscan = new Scanner(new BufferedReader(new FileReader(filename)));
 
 			while (twitterscan.hasNext()) {
 				String followerName = twitterscan.next();
-				System.out.print(followerName);
 				twitterscan.next();
 				String followedName = twitterscan.next();
-				System.out.print(followedName);
 				System.out.println("");
 
 				Vertex follower = new Vertex(followerName);
@@ -150,7 +149,8 @@ public class TwitterAnalysis {
 				graph.addVertex(follower);
 				graph.addVertex(followed);
 				graph.addEdge(follower, followed);
-
+				System.out.print(lol);
+				lol++;
 			}
 		} finally {
 			if (twitterscan != null) {
