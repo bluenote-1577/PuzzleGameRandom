@@ -35,7 +35,7 @@ public class TwitterAnalysis {
 		}
 		//create a scanner to read our queries, and a buffered
 		//writer to write to our output.
-		Scanner queryScan = new Scanner(new BufferedReader(new FileReader("datasets/test1.txt")));
+		Scanner queryScan;
 		BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 
 		try {
