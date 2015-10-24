@@ -238,5 +238,24 @@ public class AlgorithmsListTest {
 	*/
 		
 	}
+	
+	@Test 
+	public void CommonUpstreamVerticesTest2(){
+		adj_list.addEdge(v2, v1);
+		adj_list.addEdge(v3, v1);
+		adj_list.addEdge(v3, v5);
+		adj_list.addEdge(v2, v5);
+		adj_list.addEdge(v4, v5);
+		adj_list.addEdge(v7, v1);
+		adj_list.addEdge(v7, v2);
+		
+		List<Vertex> list1 = new ArrayList<Vertex>();
+		list1.add(v2);
+		list1.add(v3);
+		
+		assertEquals(list1,Algorithms.commonUpstreamVertices(adj_list,
+				new Vertex("a"),new Vertex("e")));
+		
+	}
 
 }

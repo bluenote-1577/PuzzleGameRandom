@@ -34,13 +34,13 @@ import org.junit.Test;
 public class TwitterAnalysisMatrixTest {
 
 	Graph adjmatrix;
-	
+	Map<Vertex,Boolean> vertexScanned = new HashMap<Vertex,Boolean>();
 	
 	@Before
 	//scans the test file and initializes our matrix.
 	public void initialize () throws FileNotFoundException{
 		adjmatrix = new AdjacencyMatrixGraph();
-		TwitterAnalysis.twitterScan("datasets/test1.txt", adjmatrix);
+		TwitterAnalysis.twitterScan("datasets/test1.txt", adjmatrix,vertexScanned);
 	}
 	
 	@Test
@@ -59,7 +59,7 @@ public class TwitterAnalysisMatrixTest {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 
 		try {
-			queryScan = new Scanner(new BufferedReader(new FileReader("datasets/queryTest1.txt")));
+			queryScan = new Scanner(new BufferedReader(new FileReader("datasets/querytest1.txt")));
 			
 			while (queryScan.hasNext()) {
 				//scans 4 elements in the line

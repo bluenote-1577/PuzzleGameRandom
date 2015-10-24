@@ -1,15 +1,10 @@
-query: commonInfluencers 2 3
+query: commonInfluencers 1 5
 <result>
-	1
-	5
+	2
+	3
 </result>
 
 query: commonInfluencers 7 2
-<result>
-	1
-</result>
-
-query: commonInfluencers 7 4
 <result>
 </result>
 

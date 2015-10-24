@@ -21,8 +21,7 @@ public class AdjacencyMatrixGraph implements Graph {
 	 * by our matrix.
 	 */
 	public void addVertex(Vertex v){
-		if(allVertices.contains(v))
-			return;
+		
 		int size = matrix.size();
 		
 		for (ArrayList<Boolean> row : matrix){

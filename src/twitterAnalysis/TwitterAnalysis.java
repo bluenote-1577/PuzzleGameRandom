@@ -8,8 +8,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import ca.ubc.ece.cpen221.mp3.staff.*;
 import ca.ubc.ece.cpen221.mp3.staff.Vertex;
@@ -21,12 +23,13 @@ public class TwitterAnalysis {
 		// store all the queries into the map.
 		// if the users have been queries already,
 		// we can check if it's a duplicate.
-
+		Map<Vertex,Boolean> vertexScanned = new HashMap<Vertex,Boolean>();
 		Map<String, Boolean> allQueries = new HashMap<String, Boolean>();
 		Graph myGraph = new AdjacencyMatrixGraph();
 
-		twitterScan("datasets/twitter.txt", myGraph);
+		twitterScan("datasets/test1.txt", myGraph,vertexScanned);
 
+		List<Vertex> dude = myGraph.getVertices();
 		File file = new File(args[1]);
 
 		// if the file for writing doesnt exist, then create it
@@ -131,9 +134,10 @@ public class TwitterAnalysis {
 	 * @throws FileNotFoundException
 	 */
 	
-	public static void twitterScan(String filename, Graph graph) throws FileNotFoundException {
+	public static void twitterScan(String filename, Graph graph,
+			Map<Vertex,Boolean> allVertices) throws FileNotFoundException {
 		Scanner twitterscan = null;
-		int lol = 0;
+		
 		try {
 			twitterscan = new Scanner(new BufferedReader(new FileReader(filename)));
 
@@ -141,16 +145,20 @@ public class TwitterAnalysis {
 				String followerName = twitterscan.next();
 				twitterscan.next();
 				String followedName = twitterscan.next();
-				System.out.println("");
 
 				Vertex follower = new Vertex(followerName);
 				Vertex followed = new Vertex(followedName);
-
-				graph.addVertex(follower);
-				graph.addVertex(followed);
-				graph.addEdge(follower, followed);
-				System.out.print(lol);
-				lol++;
+				if(!allVertices.containsKey(follower)){
+					graph.addVertex(follower);
+					allVertices.put(follower, true);
+				}
+				if(!allVertices.containsKey(followed)){
+					graph.addVertex(followed);
+					allVertices.put(followed, true);
+				}
+				graph.addEdge(followed, follower);
+				System.out.print(followed);
+				System.out.println(follower);
 			}
 		} finally {
 			if (twitterscan != null) {
