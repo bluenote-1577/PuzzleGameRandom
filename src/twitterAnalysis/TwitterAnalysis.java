@@ -27,7 +27,7 @@ public class TwitterAnalysis {
 
 		twitterScan("datasets/test1.txt", myGraph);
 
-		File file = new File("datasets/outTest.txt");
+		File file = new File(args[1]);
 
 		// if the file for writing doesnt exist, then create it
 		if (!file.exists()) {
@@ -35,11 +35,11 @@ public class TwitterAnalysis {
 		}
 		//create a scanner to read our queries, and a buffered
 		//writer to write to our output.
-		Scanner queryScan;
+		Scanner queryScan = null;
 		BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 
-		try {
-			queryScan = new Scanner(new BufferedReader(new FileReader("datasets/queryTest1.txt")));
+		try {	
+			queryScan = new Scanner(new BufferedReader(new FileReader(args[0])));
 			
 			while (queryScan.hasNext()) {
 				//scans 4 elements in the line
@@ -95,11 +95,33 @@ public class TwitterAnalysis {
 		for (Vertex vertex : Algorithms.commonUpstreamVertices(graph, new Vertex(user1), new Vertex(user2))) {
 			bw.write("\t" + vertex.toString() + "\n");
 		}
-		bw.write("</result>\n");
+		bw.write("</result>\n\n");
+		
 	}
 
-	public static void numRetweets(String user1, String user2, BufferedWriter bw, Graph graph) {
+	/**
+	 * 
+	 * @param user1
+	 * @param user2
+	 * @param bw
+	 * @param graph
+	 * @throws IOException
+	 * @throws NoPathException
+	 */
+	public static void numRetweets(String user1, String user2, BufferedWriter bw, Graph graph) 
+			throws IOException {
 
+		bw.write("query: numRetweets " + user1 + " " + user2 + "\n");
+		bw.write("<result>\n");
+		try{
+		bw.write(Integer.toString((Algorithms.shortestDistance
+				(graph, new Vertex(user1), new Vertex(user2))))+ "\n");
+		}
+		
+		catch (NoPathException e){
+			bw.write("No path found\n");
+		}
+		bw.write("</result>\n\n");
 	}
 
 	/**

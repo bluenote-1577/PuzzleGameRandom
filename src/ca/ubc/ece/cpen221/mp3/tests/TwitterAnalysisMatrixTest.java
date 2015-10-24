@@ -44,7 +44,7 @@ public class TwitterAnalysisMatrixTest {
 	}
 	
 	@Test
-	public void queryTestCommonInfluencers() throws IOException {
+	public void queryTestCommonInfluencers() throws IOException, NoPathException {
 		
 		Map<String, Boolean> allQueries = new HashMap<String, Boolean>();
 		File file = new File("datasets/outputTest.txt");

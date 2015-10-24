@@ -1,0 +1,30 @@
+query: commonInfluencers 2 3
+<result>
+	1
+	5
+</result>
+
+query: commonInfluencers 7 2
+<result>
+	1
+</result>
+
+query: commonInfluencers 7 4
+<result>
+</result>
+
+query: numRetweets 1 7
+<result>
+1
+</result>
+
+query: numRetweets 1 8
+<result>
+2
+</result>
+
+query: numRetweets 1 5
+<result>
+No path found
+</result>
+
