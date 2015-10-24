@@ -18,6 +18,12 @@ import ca.ubc.ece.cpen221.mp3.graph.NoPathException;
 import ca.ubc.ece.cpen221.mp3.staff.Graph;
 import ca.ubc.ece.cpen221.mp3.staff.Vertex;
 
+/**
+ * 
+ * Testing all the algorithms on the AdjacencyMatrix.
+ *
+ */
+
 public class AlgorithmsMatrixTest {
 
 	Graph adjmatrix = new AdjacencyMatrixGraph();
@@ -38,6 +44,7 @@ public class AlgorithmsMatrixTest {
 		adjmatrix.addVertex(v5);
 		adjmatrix.addVertex(v6);
 		adjmatrix.addVertex(v7);
+		
 	}
 	
 	@Test
@@ -46,6 +53,7 @@ public class AlgorithmsMatrixTest {
 		adjmatrix.addEdge(v1, v2);
 		adjmatrix.addEdge(v2, v3);
 		adjmatrix.addEdge(v3, v4);
+		assertEquals(v1.hashCode(),"a".hashCode());
 
 		
 		assertEquals(Algorithms.shortestDistance(adjmatrix,v1,v4),3);

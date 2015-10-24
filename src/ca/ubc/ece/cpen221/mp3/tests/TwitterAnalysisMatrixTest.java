@@ -26,12 +26,18 @@ import twitterAnalysis.*;
 
 import org.junit.Test;
 
+/**
+ * Test file for the twitter analysis using an AdjacencyMatrixGraph.
+ * @author Jim and Sean
+ *
+ */
 public class TwitterAnalysisMatrixTest {
 
 	Graph adjmatrix;
 	
 	
 	@Before
+	//scans the test file and initializes our matrix.
 	public void initialize () throws FileNotFoundException{
 		adjmatrix = new AdjacencyMatrixGraph();
 		TwitterAnalysis.twitterScan("datasets/test1.txt", adjmatrix);
@@ -91,13 +97,16 @@ public class TwitterAnalysisMatrixTest {
 			}
 		}
 		
+		//test our 2 files to see if they're the same. outtest1.txt is a pre-written file
+		//for testing.
+		
 		String testOut = new String(Files.readAllBytes(Paths.get("datasets/outputTest.txt")));
 		String testCompare = new String(Files.readAllBytes(Paths.get("datasets/outtest1.txt")));
 		testCompare.replaceAll("[\n\r\t]", "");
 		testOut.replaceAll("[\n\r\t]", "");
 		//IMPORTANT: Files are ANSI encoding and UNIX format.
 		assertEquals(testOut,testCompare);
-		
+		//delete the outputTest.txt file after.
 		try {
 		    file.delete();
 		}

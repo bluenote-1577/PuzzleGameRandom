@@ -11,6 +11,11 @@ import org.junit.Test;
 import ca.ubc.ece.cpen221.mp3.graph.AdjacencyListGraph;
 import ca.ubc.ece.cpen221.mp3.staff.Vertex;
 
+/**
+ * 
+ * Testing the implementation of AdjacencyListGraph.
+ *
+ */
 public class AdjacencyListGraphTest {
 
 	String A = "A";

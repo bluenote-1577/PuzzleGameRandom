@@ -17,6 +17,11 @@ import ca.ubc.ece.cpen221.mp3.graph.NoPathException;
 import ca.ubc.ece.cpen221.mp3.staff.Graph;
 import ca.ubc.ece.cpen221.mp3.staff.Vertex;
 
+/**
+ * 
+ * Testing all of the algorithms on the AdjacencyList.
+ *
+ */
 public class AlgorithmsListTest {
 	
 	Graph adj_list = new AdjacencyListGraph();

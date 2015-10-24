@@ -92,7 +92,7 @@ public class TwitterAnalysis {
 
 		bw.write("query: commonInfluencers " + user1 + " " + user2 + "\n");
 		bw.write("<result>\n");
-		for (Vertex vertex : Algorithms.commonDownstreamVertices(graph, new Vertex(user1), new Vertex(user2))) {
+		for (Vertex vertex : Algorithms.commonUpstreamVertices(graph, new Vertex(user1), new Vertex(user2))) {
 			bw.write("\t" + vertex.toString() + "\n");
 		}
 		bw.write("</result>\n");

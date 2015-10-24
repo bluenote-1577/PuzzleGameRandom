@@ -10,6 +10,11 @@ import org.junit.Test;
 import ca.ubc.ece.cpen221.mp3.graph.AdjacencyMatrixGraph;
 import ca.ubc.ece.cpen221.mp3.staff.Vertex;
 
+/**
+ * Testing the implementation of AdjacencyMatrixGraph
+ * 
+ *
+ */
 public class AdjacencyMatrixGraphTest {
 
 	AdjacencyMatrixGraph thisGraph = new AdjacencyMatrixGraph();

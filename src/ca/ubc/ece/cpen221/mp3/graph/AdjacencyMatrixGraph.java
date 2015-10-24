@@ -74,7 +74,9 @@ public class AdjacencyMatrixGraph implements Graph {
 	 *
 	 * Precondition: v1 and v2 are vertices in the graph Postcondition: return
 	 * true if an edge from v1 connects to v2
-	 * @param v1 the edge 
+	 * @param v1 the vertex where the edge comes from
+	 * @param v2 the vertex where the edge goes to
+	 * @return true if the edge exists, false otherwise.
 	 */
 	
 	@Override
@@ -87,18 +89,21 @@ public class AdjacencyMatrixGraph implements Graph {
 		return matrix.get(index1).get(index2);
 	}
 	
+	
+	
+	@Override
+	
 	/**
-	 * Get an array containing all downstream vertices adjacent to v.
 	 *
 	 * Precondition: v is a vertex in the graph
 	 * 
-	 * Postcondition: returns a list containing each vertex w such that there is
-	 * an edge from v to w. The size of the list must be as small as possible
+	 * Postcondition: returns a list containing each vertex u such that there is
+	 * an edge from u to v. The size of the list must be as small as possible
 	 * (No trailing null elements). This method should return a list of size 0
-	 * iff v has no downstream neighbors.
+	 * iff v has no upstream neighbors.
+	 * @param v the vertex we get the downstream neighbors of.
+	 * @return the list of downstream vertices.
 	 */
-	
-	@Override
 	public List<Vertex> getDownstreamNeighbors(Vertex v){
 		
 		int indexV = allVertices.indexOf(v);
@@ -115,6 +120,20 @@ public class AdjacencyMatrixGraph implements Graph {
 		return toReturn;
 		
 	}
+	
+	/**
+	 * Get an array containing all upstream vertices adjacent to v.
+	 *
+	 * Precondition: v is a vertex in the graph
+	 * 
+	 * Postcondition: returns a list containing each vertex u such that there is
+	 * an edge from u to v. The size of the list must be as small as possible
+	 * (No trailing null elements). This method should return a list of size 0
+	 * if v has no upstream neighbors.
+	 * 
+	 * @param v the vertex which we get the upstream neighbors of.
+	 * @return the list of upstream vertices.
+	 */
 
 	@Override
 	public List<Vertex> getUpstreamNeighbors(Vertex v){
@@ -133,7 +152,9 @@ public class AdjacencyMatrixGraph implements Graph {
 	
 	@Override
 	/**
-	 * returns all of the vertices in our graph.
+	 *@return all of the vertices in our graph.
+	 * 
+	 * 
 	 */
 	public List<Vertex> getVertices(){
 		List<Vertex> dude = new ArrayList<Vertex>();
