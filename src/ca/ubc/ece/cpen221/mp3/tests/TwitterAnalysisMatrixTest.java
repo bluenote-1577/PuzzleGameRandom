@@ -105,6 +105,7 @@ public class TwitterAnalysisMatrixTest {
 		testCompare.replaceAll("[\n\r\t]", "");
 		testOut.replaceAll("[\n\r\t]", "");
 		//IMPORTANT: Files are ANSI encoding and UNIX format.
+		//THE FILE HAS TO BE IN UNIX FORMAT
 		assertEquals(testOut,testCompare);
 		//delete the outputTest.txt file after.
 		try {
@@ -113,6 +114,7 @@ public class TwitterAnalysisMatrixTest {
 		 catch (Exception e) {
 		    // File permission problems are caught here.
 		    System.err.println("Something went wrong with delete");
+		    
 		}
 		
 	}
