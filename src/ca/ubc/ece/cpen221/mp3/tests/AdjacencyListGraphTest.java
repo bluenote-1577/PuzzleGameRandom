@@ -130,8 +130,6 @@ public class AdjacencyListGraphTest {
 
 		// get the arrays from each vertex in the graph
 		ArrayList<Vertex> arr1 = my_map.get(v1);
-		ArrayList<Vertex> arr2 = my_map.get(v2);
-		ArrayList<Vertex> arr3 = my_map.get(v3);
 
 		arr1.add(v2);
 
@@ -204,7 +202,6 @@ public class AdjacencyListGraphTest {
 		Map<Vertex, ArrayList<Vertex>> my_map;
 		my_map = vert_list.getMap();
 		
-		ArrayList<Vertex> arr1 = my_map.get(v1);
 		ArrayList<Vertex> arr2 = my_map.get(v2);
 		ArrayList<Vertex> arr3 = my_map.get(v3);
 		ArrayList<Vertex> arr4 = my_map.get(v4);
@@ -214,9 +211,11 @@ public class AdjacencyListGraphTest {
 
 		
 		//add v2, v3 and v4 as downstream edges to v1
-		arr1.add(v2);
-	    arr1.add(v3);
-	    
+		//arr1.add(v2);
+	    //arr1.add(v3);
+	    vert_list.addEdge(v1, v2);
+	    vert_list.addEdge(v1, v3);
+		
 	    //add v1 as a downstream edge to v2
 	    arr2.add(v1);
 	    
@@ -247,18 +246,8 @@ public class AdjacencyListGraphTest {
 	public void getVerticesTest(){
 		
 		vert_list = new AdjacencyListGraph();
-
-		// create map to get the ArrayLists from each vertex
-		Map<Vertex, ArrayList<Vertex>> my_map;
-		my_map = vert_list.getMap();
-		
-		ArrayList<Vertex> arr1 = my_map.get(v1);
-		ArrayList<Vertex> arr2 = my_map.get(v2);
-		ArrayList<Vertex> arr3 = my_map.get(v3);
-		ArrayList<Vertex> arr4 = my_map.get(v4);
 		
 		List<Vertex> list1 = new ArrayList<Vertex>();
-		List<Vertex> list2 = new ArrayList<Vertex>();
 		
 		//case 1: no vertices in the graph (size = 0)
 		assertEquals(0, vert_list.getVertices().size());
