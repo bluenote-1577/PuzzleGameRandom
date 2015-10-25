@@ -29,9 +29,14 @@ import org.junit.Test;
 /**
  * Test file for the twitter analysis using an AdjacencyMatrixGraph.
  * @author Jim and Sean
+ * 
+ * //IMPORTANT: Files are ANSI encoding and UNIX format.
+		//THE EXPECTED OUTPUT TEXT HAS TO BE IN UNIX FORMAT.
+		 * we tested UTF and ANSI encoding and they seem to be compatible,
+		 * but UNIX format text and WINDOWS format text are not compatible.
  *
  */
-public class TwitterAnalysisMatrixTest {
+public class TwitterAnalysisTest {
 
 	Graph adjmatrix;
 	Map<Vertex,Boolean> vertexScanned = new HashMap<Vertex,Boolean>();
@@ -39,12 +44,12 @@ public class TwitterAnalysisMatrixTest {
 	@Before
 	//scans the test file and initializes our matrix.
 	public void initialize () throws FileNotFoundException{
-		adjmatrix = new AdjacencyMatrixGraph();
-		TwitterAnalysis.twitterScan("datasets/test1.txt", adjmatrix,vertexScanned);
+		adjmatrix = new AdjacencyListGraph();
+		TwitterAnalysis.twitterScan("datasets/test_data_set.txt", adjmatrix,vertexScanned);
 	}
 	
 	@Test
-	public void queryTestCommonInfluencers() throws IOException, NoPathException {
+	public void mainTest() throws IOException, NoPathException {
 		
 		Map<String, Boolean> allQueries = new HashMap<String, Boolean>();
 		File file = new File("datasets/outputTest.txt");
@@ -55,14 +60,14 @@ public class TwitterAnalysisMatrixTest {
 		}
 		//create a scanner to read our queries, and a buffered
 		//writer to write to our output.
-		Scanner queryScan = new Scanner(new BufferedReader(new FileReader("datasets/test1.txt")));
+		Scanner queryScan = null;
 		BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 
 		try {
 			queryScan = new Scanner(new BufferedReader(new FileReader("datasets/querytest1.txt")));
 			
 			while (queryScan.hasNext()) {
-				//scans 4 elements in the line
+				//scans 4 elements in the line since each line contains 4 elements.
 				String queryType = queryScan.next();
 				String user1 = queryScan.next();
 				String user2 = queryScan.next();
@@ -84,7 +89,6 @@ public class TwitterAnalysisMatrixTest {
 					//puts possible combinations of user1 and user2 in the map
 					//to check for duplicates
 					allQueries.put((user1 +"."+ user2 + queryType), true);
-					allQueries.put((user2 + "."+user1 + queryType), true);
 
 				}
 			}
@@ -97,11 +101,11 @@ public class TwitterAnalysisMatrixTest {
 			}
 		}
 		
-		//test our 2 files to see if they're the same. outtest1.txt is a pre-written file
+		//test our 2 files to see if they're the same. comm_inf_expected1.txt is a pre-written file
 		//for testing.
 		
 		String testOut = new String(Files.readAllBytes(Paths.get("datasets/outputTest.txt")));
-		String testCompare = new String(Files.readAllBytes(Paths.get("datasets/outtest1.txt")));
+		String testCompare = new String(Files.readAllBytes(Paths.get("datasets/comm_inf_expected1.txt")));
 		testCompare.replaceAll("[\n\r\t]", "");
 		testOut.replaceAll("[\n\r\t]", "");
 		//IMPORTANT: Files are ANSI encoding and UNIX format.

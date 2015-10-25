@@ -1,5 +1,0 @@
-commonInfluencers 1 5 ?
-commonInfluencers 7 2 ?
-numRetweets 7 1 ?
-numRetweets 8 1 ?
-numRetweets 5 1 ?

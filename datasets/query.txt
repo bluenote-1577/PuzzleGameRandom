@@ -1,3 +1,0 @@
-commonInfluencers 10416 37722200 ?
-commonInfluencers 1747381 8215402 ?
-commonInfluencers 54352233 478136744 ?

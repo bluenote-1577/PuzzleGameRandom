@@ -1,0 +1,30 @@
+query: commonInfluencers 1 5
+<result>
+	2
+	3
+</result>
+
+query: commonInfluencers 7 2
+<result>
+</result>
+
+query: numRetweets 8 3
+<result>
+No path found
+</result>
+
+query: numRetweets jack justin
+<result>
+1
+</result>
+
+query: numRetweets john justin
+<result>
+3
+</result>
+
+query: numRetweets justin john
+<result>
+No path found
+</result>
+

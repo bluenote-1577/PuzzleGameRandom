@@ -52,7 +52,8 @@ public class TwitterAnalysis {
 				String user2 = queryScan.next();
 				String question = queryScan.next();
 
-				//make sure that the query isn't a duplicate 
+				//make sure that the query isn't a duplicate and is legal.
+				//
 				if (!question.equals("?") || allQueries.containsKey(user1 + "." + user2 + queryType))
 					;
 
@@ -68,7 +69,6 @@ public class TwitterAnalysis {
 					//puts possible combinations of user1 and user2 in the map
 					//to check for duplicates
 					allQueries.put((user1 + "." + user2 + queryType), true);
-					allQueries.put((user2 + "." + user1 + queryType), true);
 
 				}
 			}
@@ -84,6 +84,8 @@ public class TwitterAnalysis {
 	}
 	/**
 	 * Writes to our output file with the correct format for the corresponding query.
+	 *  NOTE: We made this function public so we could test it with JUNIT. Ideally
+	 * it would be private.
 	 * @param user1 the first user scanned in the file
 	 * @param user2 the second user scanned in the file.
 	 * @param bw our buffer writer
@@ -104,13 +106,17 @@ public class TwitterAnalysis {
 	}
 
 	/**
-	 * 
-	 * @param user1
-	 * @param user2
-	 * @param bw
-	 * @param graph
-	 * @throws IOException
-	 * @throws NoPathException
+	 * Call this function to write to a file the output of a numRetweets query. 
+	 * Returns the number of tweets needed before a tweet from user1 is read by
+	 * user2.
+	 * NOTE: We made this function public so we could test it with JUNIT. Ideally
+	 * it would be private.
+	 * @param user1 the first user queried, i.e. the person who tweets a tweet.
+	 * @param user2 the second user queried, i.e. the person who receives the tweet.
+	 * @param bw a buffer writer that writes to a file, specified in main.
+	 * @param graph the graph that is traversed.
+	 * @throws IOException if bufferedwriter can't read the file or something goes wrong.
+	 * @throws NoPathException if a tweet from user1 can't be read by user2.
 	 */
 	public static void numRetweets(String user1, String user2, BufferedWriter bw, Graph graph) 
 			throws IOException {
@@ -129,17 +135,19 @@ public class TwitterAnalysis {
 	}
 
 	/**
-	 * 
-	 * @param filename
-	 * @param graph
-	 * @throws FileNotFoundException
+	 * This function scans the text file into the graph.
+	 * NOTE: We made this function public so we could test it with JUNIT. Ideally
+	 * it would be private.
+	 * @param filename the path of the file we want to scan.
+	 * @param graph the graph that the file is scanned into.
+	 * @throws FileNotFoundException if the file path is not legal or no file is found.
 	 */
 	
 	public static void twitterScan(String filename, Graph graph,
 			Map<Vertex,Boolean> allVertices) throws FileNotFoundException {
 		Scanner twitterscan = null;
 		
-			//int numscanned = 0;
+			//int numscanned = 0; uncomment these for testing how many lines are printed.
 		try {
 			twitterscan = new Scanner(new BufferedReader(new FileReader(filename)));
 
