@@ -35,7 +35,7 @@ public class AdjacencyListGraph implements Graph {
 	 * Precondition: v is not already a vertex in the graph
 	 */
 	public void addVertex(Vertex v) {
-
+	
 		vert_map.put(v, new ArrayList<Vertex>());
 
 	}

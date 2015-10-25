@@ -232,12 +232,6 @@ public class AlgorithmsListTest {
 		//case 3: multiple common down stream vertices 
 		assertEquals(list1, Algorithms.commonDownstreamVertices(adj_list, v1, v2));
 		
-		/*adj_list.addEdge(v6, v4);  check this out later--> shouldnt this be downstream???
-		list1.add(v4);
-		
-		assertEquals(list1, Algorithms.commonDownstreamVertices(adj_list, v1, v2));
-	*/
-		
 	}
 	
 	@Test 
