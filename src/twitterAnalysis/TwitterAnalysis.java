@@ -20,16 +20,17 @@ import ca.ubc.ece.cpen221.mp3.graph.*;
 public class TwitterAnalysis {
 
 	public static void main(String[] args) throws IOException {
-		// store all the queries into the map.
-		// if the users have been queries already,
+		// store all the queries into the map allQueries.
+		// if the users have been queried already,
 		// we can check if it's a duplicate.
+		// Our map vertexScanned remembers what vertices have been scanned
+		// into our graph, so there are no duplicates.
 		Map<Vertex,Boolean> vertexScanned = new HashMap<Vertex,Boolean>();
 		Map<String, Boolean> allQueries = new HashMap<String, Boolean>();
-		Graph myGraph = new AdjacencyMatrixGraph();
+		Graph myGraph = new AdjacencyListGraph();
 
-		twitterScan("datasets/test1.txt", myGraph,vertexScanned);
+		twitterScan("datasets/twitter.txt", myGraph,vertexScanned);
 
-		List<Vertex> dude = myGraph.getVertices();
 		File file = new File(args[1]);
 
 		// if the file for writing doesnt exist, then create it
@@ -52,7 +53,7 @@ public class TwitterAnalysis {
 				String question = queryScan.next();
 
 				//make sure that the query isn't a duplicate 
-				if (!question.equals("?") || allQueries.containsKey(user1 + user2 + queryType))
+				if (!question.equals("?") || allQueries.containsKey(user1 + "." + user2 + queryType))
 					;
 
 				else {
@@ -66,8 +67,8 @@ public class TwitterAnalysis {
 					}
 					//puts possible combinations of user1 and user2 in the map
 					//to check for duplicates
-					allQueries.put((user1 + user2 + queryType), true);
-					allQueries.put((user2 + user1 + queryType), true);
+					allQueries.put((user1 + "." + user2 + queryType), true);
+					allQueries.put((user2 + "." + user1 + queryType), true);
 
 				}
 			}
@@ -138,6 +139,7 @@ public class TwitterAnalysis {
 			Map<Vertex,Boolean> allVertices) throws FileNotFoundException {
 		Scanner twitterscan = null;
 		
+			//int numscanned = 0;
 		try {
 			twitterscan = new Scanner(new BufferedReader(new FileReader(filename)));
 
@@ -157,8 +159,8 @@ public class TwitterAnalysis {
 					allVertices.put(followed, true);
 				}
 				graph.addEdge(followed, follower);
-				System.out.print(followed);
-				System.out.println(follower);
+			//	System.out.println(numscanned);
+			//	numscanned++;
 			}
 		} finally {
 			if (twitterscan != null) {
